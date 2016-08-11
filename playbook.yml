@@ -1,0 +1,19 @@
+---
+- hosts: all
+  become: true
+  become_method: sudo
+
+  vars:
+    document_root: /vagrant
+
+  pre_tasks:
+    - name: update apt cache
+      apt: update_cache=yes
+
+  roles:
+    - database
+    - webserver
+
+  tasks:
+    - name: upgrade packages
+      apt: upgrade=dist
